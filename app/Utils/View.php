@@ -18,9 +18,7 @@ class View {
       return '{{'. $item .'}}';
     }, $keys);
 
-    // echo '<pre>';
-    // print_r($keys);
-    // exit;
+    
 
 
     
