@@ -8,6 +8,7 @@ use App\Controller\Pages\Home;
 use App\Http\Response;
 use App\Http\Router;
 
+
 $obRouter = new Router(URL); 
 
 $obRouter->get('/',[
@@ -15,3 +16,7 @@ $obRouter->get('/',[
     return new Response(200, Home::getHome());
   }
 ]);
+
+
+
+$obRouter->run()->sendResponse();
