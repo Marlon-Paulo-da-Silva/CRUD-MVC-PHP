@@ -71,10 +71,9 @@ class Router {
     $uri = $this->getUri();
 
     $httpMethod = $this->request->getHttpMethod();
-
-    
+       
     foreach ($this->routes as $patternRoute => $methods) {
-      
+     
       if(preg_match($patternRoute, $uri)){
         if($methods[$httpMethod]){
           return $methods[$httpMethod];
@@ -83,8 +82,9 @@ class Router {
         throw new Exception("Metodo não permitido", 405);
       }
 
-      throw new Exception("URL não encontrada", 404);
     }
+    throw new Exception("URL não encontrada", 404);
+    // exit;
     
     
   }
@@ -93,10 +93,7 @@ class Router {
     try {
 
       $route = $this->getRoute();
-      // echo '<pre>';
-      // print_r($route);
-      // echo '</pre>';
-      // exit;
+      
       if(!isset($route['controller'])){
         throw new Exception('A URL não pode ser processada', 500);
       }
