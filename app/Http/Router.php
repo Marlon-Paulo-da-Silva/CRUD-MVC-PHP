@@ -1,6 +1,8 @@
 <?php
 namespace App\Http;
 
+use \Closure;
+
 class Router {
   private $url = '';
 
@@ -21,5 +23,13 @@ class Router {
     $parseUrl = parse_url($this->url);
 
     $this->prefix = $parseUrl['path'] ?? '';
+  }
+
+  private function addRoute($method, $route, $params = []){
+    
+  }
+
+  public function get($route, $params = []){
+    return $this->addRoute('GET', $route, $params);
   }
 }
