@@ -34,12 +34,27 @@ class Router {
         continue;
       }
     }
+    // Variaveis da rota
+    $params['variables'] = [];
+
+    //padrao de validação das variaveis das rotas
+    $patternVariable = '/{(.*?)}/';
+    if(preg_match_all($patternVariable, $route, $matches)){
+      $route = preg_replace($patternVariable, '(.*?)', $route);
+
+    }
+
+
     $patternRoute = '/^' . str_replace('/', '\/', $route) . '$/';
 
-    $this->routes[$patternRoute][$method] = $params;
+    echo '<pre>';
+    echo print_r($patternRoute);
+    die();
 
-    
+    $this->routes[$patternRoute][$method] = $params;
+  
   }
+
 
 
   public function get($route, $params = []){

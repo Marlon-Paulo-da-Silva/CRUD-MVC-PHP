@@ -15,3 +15,9 @@ $obRouter->get('/sobre',[
     return new Response(200, Pages\About::getHome());
   }
 ]);
+
+$obRouter->get('/pagina/{idPagina}',[
+  function($idPagina){
+    return new Response(200, 'Pagina: '.$idPagina);
+  }
+]);
