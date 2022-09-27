@@ -46,7 +46,7 @@ class Router {
 
 
     $patternRoute = '/^' . str_replace('/', '\/', $route) . '$/';
-
+    // TODO
     echo '<pre>';
     echo print_r($patternRoute);
     die();
