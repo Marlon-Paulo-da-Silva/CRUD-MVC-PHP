@@ -140,6 +140,7 @@ class URI {
   {
       //Concatena os valores
       self::$finalBase = self::Protocolo() . self::Host() . self::scriptName();
+    //   self::$finalBase = self::Protocolo() . self::Host();
       /**
        * Retorna toda a url construida em formato string
        * @var string

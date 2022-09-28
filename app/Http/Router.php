@@ -58,12 +58,6 @@ class Router {
     // print_r($this->routes[$patternRoute][$method]);
     // echo '</pre>';
 
-    // echo '<br><br>Params: ';
-    // echo '<pre>';
-    // print_r($params);
-    // echo '</pre>';
-
-    // die();
 
     // echo "DEntro do Add Route";
     // echo '<br><br>Metodo: ';

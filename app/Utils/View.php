@@ -4,8 +4,11 @@ namespace App\Utils;
 
 class View {
 
+  private static $vars = [];
+
+  // Responsável por definir os dados iniciais da classe
   public static function init($vars =[]){
-    
+    self::$vars = $vars;
   }
 
   private static function getContentView($view){
@@ -16,6 +19,9 @@ class View {
 
   public static function render($view, $vars = []){
     $contentView = self::getContentView($view);
+
+    // Merge de variáveis da VIEW
+    $vars = array_merge(self::$vars, $vars);
 
     $keys = array_keys($vars);
     $keys = array_map(function($item){
@@ -31,8 +37,6 @@ class View {
     //   $find[] = "{{$key}}";
     //   $replace[] = $value;
     // }
-
-
     return str_replace($keys, array_values($vars), $contentView);
     // return str_replace($find, $replace, $contentView);
 

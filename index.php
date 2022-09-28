@@ -1,16 +1,28 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
+use App\Http\Router;
 use App\Utils\Uri;
+use App\Utils\View;
 
 $base = new URI();
-$base =  $base->base();
+$base =  strtolower($base->base());
 
-define('URL', 'http://localhost/mvc-php');
-// define('URL', $base);
+// define('URL', 'http://localhost/mvc-php');
+define('URL', $base);
 
-use App\Http\Router;
+// Define o valor padrão das variáveis
+View::init([
+  'URL' => URL
+]);
 
+// echo '<br><br>BASE URL: ';
+// echo '<pre>';
+// print_r(URL);
+// echo '</pre>';
+// die();
+
+// inicia o Router
 $obRouter = new Router(URL); 
 
 
