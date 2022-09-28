@@ -3,6 +3,7 @@ namespace App\Http;
 
 use \Closure;
 use \Exception;
+use \ReflectionFunction;
 
 class Router {
   private $url = '';
@@ -42,38 +43,22 @@ class Router {
     $patternVariable = '/{(.*?)}/';
 
     if(preg_match_all($patternVariable, $route, $matches)){
-      $route = preg_replace($patternVariable, '(.*?)', $route);   
-    }
 
+      $route = preg_replace($patternVariable, '(.*?)', $route);  
+      $params['variables'] = $matches[1];
+
+    }
+    
     // Padrão de validação da URL
     $patternRoute = '/^' . str_replace('/', '\/', $route) . '$/';
     
-
+    
     // Adiciona a rota dentro da classe
     $this->routes[$patternRoute][$method] = $params;
-
-    // echo "<br>Rota: " . $patternRoute;
-    // echo '<br>$this->routes: ';
-    // echo '<pre>';
-    // print_r($this->routes[$patternRoute][$method]);
-    // echo '</pre>';
-
-
-    // echo "DEntro do Add Route";
-    // echo '<br><br>Metodo: ';
-    // echo '<pre>';
-    // echo print_r($method);
-    // echo '</pre>';
-    // echo '<br><br>Rota: ';
-    // echo '<pre>';
-    // echo print_r($route);
-    // echo '</pre>';
-    // echo '<br><br>Params: ';
-    // echo '<pre>';
-    // echo print_r($params);
-    // echo '</pre>';
-    // echo "FIM do Add Route";
-        
+    
+    echo '<pre>';
+    print_r($patternRoute);
+    echo '</pre>';        
   }
 
 
@@ -123,10 +108,19 @@ class Router {
     foreach ($this->routes as $patternRoute => $methods) {
       
       // Compara a rota da URI com as rotas existentes
-      if(preg_match($patternRoute, $uri)){
+      if(preg_match($patternRoute, $uri, $matches)){
 
         // Verifica o Método se existe
         if($methods[$httpMethod]){
+
+          // Remove a primeira posição
+          unset($matches[0]);
+
+          // Variaveis processadas
+          $keys = $methods[$httpMethod]['variables'];
+          $methods[$httpMethod]['variables'] = array_combine($keys, $matches);
+
+          $methods[$httpMethod]['variables']['request'] = $this->request;
 
           // Retorno parametros da rota
           return $methods[$httpMethod];
@@ -150,12 +144,34 @@ class Router {
       // Obtém a rota atual
       $route = $this->getRoute();
 
-     // verifica o controlador
+      // echo "<br>route: ";
+      // echo '<pre>';
+      // print_r($route);
+      // echo '</pre>';
+      // exit;
+
+      // verifica o controlador
       if(!isset($route['controller'])){
         throw new Exception('A URL não pode ser processada', 500);
       }
       // Argumentos da função-
       $args = [];
+
+      //Reflection
+      $reflection = new ReflectionFunction($route['controller']);
+
+      foreach($reflection->getParameters() as $parameter){
+        
+        $name = $parameter->getName();
+        $args[$name] = $route['variables'][$name] ?? '';
+
+        //TODO continued 1:18:22
+      }
+      echo "<br>args: ";
+      echo '<pre>';
+      print_r($args);
+      echo '</pre>';
+      
 
       // Retorna a execução da função
       return call_user_func_array($route['controller'], $args);
@@ -163,5 +179,8 @@ class Router {
     } catch (Exception $th) {
       return new Response($th->getCode(), $th->getMessage());
     }
+
+    exit;
+
   }
 }

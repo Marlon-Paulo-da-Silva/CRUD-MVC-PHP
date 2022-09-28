@@ -16,8 +16,15 @@ $obRouter->get('/sobre',[
   }
 ]);
 
+// Rota dinamica
 $obRouter->get('/pagina/{idPagina}',[
   function($idPagina){
     return new Response(200, 'Pagina: '.$idPagina);
+  }
+]);
+
+$obRouter->get('/user/edit/{idUser}/{teste}/',[
+  function($idPagina){
+    return new Response(200, 'Pagina: ' . $idPagina);
   }
 ]);
