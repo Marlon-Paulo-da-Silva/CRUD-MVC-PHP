@@ -4,6 +4,10 @@ namespace App\Utils;
 
 class View {
 
+  public static function init($vars =[]){
+    
+  }
+
   private static function getContentView($view){
     $file = __DIR__ . '/../../resources/view/'. $view . '.html';
 
@@ -18,14 +22,16 @@ class View {
       return '{{'. $item .'}}';
     }, $keys);
 
-    
+    // echo "<pre>";
+    // print_r($keys);
+    // echo "</pre>";
+    // exit;
 
-
-    
     // foreach ($vars as $key => $value){
     //   $find[] = "{{$key}}";
     //   $replace[] = $value;
     // }
+
 
     return str_replace($keys, array_values($vars), $contentView);
     // return str_replace($find, $replace, $contentView);
