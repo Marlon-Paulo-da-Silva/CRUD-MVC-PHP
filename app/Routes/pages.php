@@ -22,6 +22,18 @@ $obRouter->get('/depoimentos',[
   }
 ]);
 
+// Rota de depoimentos (INSERT)
+$obRouter->post('/depoimentos',[
+  function($request){
+    echo '<pre>';
+    //  echo json_encode($request);
+    print_r($request);
+    echo '</pre>';
+    exit;
+    return new Response(200, Pages\Testimony::getTestimonies());
+  }
+]);
+
 // Rota dinamica
 // $obRouter->get('/pagina/{idPagina}/{acao}',[
 //   function($idPagina, $acao){
