@@ -112,7 +112,7 @@ class Router {
     foreach ($this->routes as $patternRoute => $methods) {
       
       // Compara a rota da URI com as rotas existentes
-      if(preg_match_all($patternRoute, $uri, $matches)){
+      if(preg_match($patternRoute, $uri, $matches)){
 
         // Verifica o Método se existe
         if($methods[$httpMethod]){
@@ -185,14 +185,14 @@ class Router {
       }
       
       
-      echo "<br>route: ";
-      echo '<pre>';
-      // print_r($reflection->getParameters());
-      print_r($args);
-      // print_r($route);
-      echo '</pre>';
+      // echo "<br>route: ";
+      // echo '<pre>';
+      // // print_r($reflection->getParameters());
+      // print_r($args);
+      // // print_r($route);
+      // echo '</pre>';
       
-      exit;
+      // exit;
       
       // Retorna a execução da função
       return call_user_func_array($route['controller'], $args);
