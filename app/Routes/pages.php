@@ -16,15 +16,21 @@ $obRouter->get('/sobre',[
   }
 ]);
 
-// Rota dinamica
-$obRouter->get('/pagina/{idPagina}/{acao}',[
-  function($idPagina, $acao){
-    return new Response(200, "Pagina: " . $idPagina . " - Ação: " . $acao);
+$obRouter->get('/depoimentos',[
+  function(){
+    return new Response(200, Pages\Testimony::getTestimonies());
   }
 ]);
 
-$obRouter->get('/user/edit/{idUser}/{teste}/',[
-  function($idPagina, $teste){
-    return new Response(200, 'Pagina: ' . $idPagina . ' - Teste: ' . $teste);
-  }
-]);
+// Rota dinamica
+// $obRouter->get('/pagina/{idPagina}/{acao}',[
+//   function($idPagina, $acao){
+//     return new Response(200, "Pagina: " . $idPagina . " - Ação: " . $acao);
+//   }
+// ]);
+
+// $obRouter->get('/user/edit/{idUser}/{teste}/',[
+//   function($idPagina, $teste){
+//     return new Response(200, 'Pagina: ' . $idPagina . ' - Teste: ' . $teste);
+//   }
+// ]);

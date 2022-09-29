@@ -10,7 +10,7 @@ use App\Utils\Environment;
 Environment::load(__DIR__);
 
 //GET ENVIRONMENT VAR
-echo getenv('DB_HOST');
+// echo getenv('DB_HOST');
 
 
 $base = new URI();
