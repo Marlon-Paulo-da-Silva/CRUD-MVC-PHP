@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Database;
+namespace App\Database\Pagination;
 
 class Pagination{
 
