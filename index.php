@@ -4,6 +4,14 @@ require __DIR__ . '/vendor/autoload.php';
 use App\Http\Router;
 use App\Utils\Uri;
 use App\Utils\View;
+use App\Utils\Environment;
+
+//LOAD ENVIRONMENT VARS FROM FILE ON ROOT
+Environment::load(__DIR__);
+
+//GET ENVIRONMENT VAR
+echo getenv('DB_HOST');
+
 
 $base = new URI();
 $base =  strtolower($base->base());
