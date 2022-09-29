@@ -36,6 +36,7 @@ class Router {
         continue;
       }
     }
+   
     // Variaveis da rota
     $params['variables'] = [];
 
@@ -52,13 +53,16 @@ class Router {
     // Padrão de validação da URL
     $patternRoute = '/^' . str_replace('/', '\/', $route) . '$/';
     
-    
+
     // Adiciona a rota dentro da classe
     $this->routes[$patternRoute][$method] = $params;
     
-    echo '<pre>';
-    print_r($patternRoute);
-    echo '</pre>';        
+    // echo '<pre>';
+    // print_r($patternRoute);
+    // print_r($this->routes[$patternRoute][$method]);
+    // // print_r($this->routes[$patternRoute][$method]['variables']);
+    // echo '</pre>';
+    // exit;        
   }
 
 
@@ -108,7 +112,7 @@ class Router {
     foreach ($this->routes as $patternRoute => $methods) {
       
       // Compara a rota da URI com as rotas existentes
-      if(preg_match($patternRoute, $uri, $matches)){
+      if(preg_match_all($patternRoute, $uri, $matches)){
 
         // Verifica o Método se existe
         if($methods[$httpMethod]){
@@ -118,9 +122,19 @@ class Router {
 
           // Variaveis processadas
           $keys = $methods[$httpMethod]['variables'];
+
+          
+
           $methods[$httpMethod]['variables'] = array_combine($keys, $matches);
 
+          
           $methods[$httpMethod]['variables']['request'] = $this->request;
+          
+          // echo '<pre>';
+          // print_r($methods[$httpMethod]);
+          // // print_r($this->routes[$patternRoute][$method]);
+          // // print_r($this->routes[$patternRoute][$method]['variables']);
+          // echo '</pre>';
 
           // Retorno parametros da rota
           return $methods[$httpMethod];
@@ -160,6 +174,8 @@ class Router {
       //Reflection
       $reflection = new ReflectionFunction($route['controller']);
 
+      
+
       foreach($reflection->getParameters() as $parameter){
         
         $name = $parameter->getName();
@@ -167,12 +183,17 @@ class Router {
 
         //TODO continued 1:18:22
       }
-      echo "<br>args: ";
+      
+      
+      echo "<br>route: ";
       echo '<pre>';
+      // print_r($reflection->getParameters());
       print_r($args);
+      // print_r($route);
       echo '</pre>';
       
-
+      exit;
+      
       // Retorna a execução da função
       return call_user_func_array($route['controller'], $args);
 
@@ -180,7 +201,6 @@ class Router {
       return new Response($th->getCode(), $th->getMessage());
     }
 
-    exit;
 
   }
 }
