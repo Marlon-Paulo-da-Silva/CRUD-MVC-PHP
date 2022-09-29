@@ -56,13 +56,7 @@ class Router {
 
     // Adiciona a rota dentro da classe
     $this->routes[$patternRoute][$method] = $params;
-    
-    // echo '<pre>';
-    // print_r($patternRoute);
-    // print_r($this->routes[$patternRoute][$method]);
-    // // print_r($this->routes[$patternRoute][$method]['variables']);
-    // echo '</pre>';
-    // exit;        
+       
   }
 
 
@@ -115,7 +109,7 @@ class Router {
       if(preg_match($patternRoute, $uri, $matches)){
 
         // Verifica o Método se existe
-        if($methods[$httpMethod]){
+        if(isset($methods[$httpMethod])){
 
           // Remove a primeira posição
           unset($matches[0]);
@@ -130,11 +124,6 @@ class Router {
           
           $methods[$httpMethod]['variables']['request'] = $this->request;
           
-          // echo '<pre>';
-          // print_r($methods[$httpMethod]);
-          // // print_r($this->routes[$patternRoute][$method]);
-          // // print_r($this->routes[$patternRoute][$method]['variables']);
-          // echo '</pre>';
 
           // Retorno parametros da rota
           return $methods[$httpMethod];
@@ -158,11 +147,6 @@ class Router {
       // Obtém a rota atual
       $route = $this->getRoute();
 
-      // echo "<br>route: ";
-      // echo '<pre>';
-      // print_r($route);
-      // echo '</pre>';
-      // exit;
 
       // verifica o controlador
       if(!isset($route['controller'])){
