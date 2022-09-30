@@ -17,7 +17,7 @@ class Testimony{
     
     // Insere o depoimento no banco de dados
     $this->id = (new Database('depoimentos'))->insert([
-      'name' => $this->nome,
+      'name' => $this->name,
       'message' => $this->message,
       'date' => $this->date
     ]);

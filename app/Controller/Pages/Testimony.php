@@ -58,11 +58,6 @@ class Testimony extends Page {
     
     $obTestimony->cadastrar();
     
-    echo '<pre>';
-    //  echo json_encode($request);
-    print_r($postVars);
-    echo '</pre>';
-    exit;
     
     return self::getTestimonies();
   }
