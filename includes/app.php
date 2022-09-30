@@ -6,6 +6,7 @@ use App\Utils\Uri;
 use App\Utils\View;
 use App\Utils\Environment;
 use App\Db\Database;
+use App\Http\Middleware\Queue as MiddlewareQueue;
 
 //LOAD ENVIRONMENT VARS FROM FILE ON ROOT
 Environment::load(__DIR__.'/../');
@@ -33,4 +34,8 @@ View::init([
   'URL' => URL
 ]);
 
+//Define o mapeamento de Middlewares
+MiddlewareQueue::setMap([
+  'maintenance' => \App\Http\Middleware\Maintenance::class
+]);
 ?>

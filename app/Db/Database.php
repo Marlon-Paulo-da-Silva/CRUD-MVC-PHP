@@ -65,6 +65,10 @@ class Database{
     self::$port = $port;
   }
 
+  public static function testConnection(){
+    
+  }
+
   /**
    * Define a tabela e instancia e conexão
    * @param string $table
