@@ -40,12 +40,6 @@ class Request
         $xURI = explode('?', $this->uri);
 
         $this->uri = $xURI[0];
-
-        // echo "<pre>";
-        // print_r($xURI);
-        // echo "</pre>";
-
-        // exit;
     }
 
     

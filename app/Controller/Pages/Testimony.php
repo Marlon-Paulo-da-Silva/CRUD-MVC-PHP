@@ -4,15 +4,25 @@ namespace App\Controller\Pages;
 
 use App\Utils\View;
 use App\Model\Entity\Testimony as EntityTestimony;
-use App\Db\Database;
+use App\Db\Pagination;
 
 class Testimony extends Page {
 
-  public static function getTestimonyItems(){
+  public static function getTestimonyItems($request){
     //depoimentos
     $items = '';
 
-    $results = EntityTestimony::getTestimonies(null, 'id DESC');
+    // quantidade total de registros
+    $totalQuantity = EntityTestimony::getTestimonies(null, null, null, 'COUNT(*) as qtde')->fetchObject()->qtde;
+
+    // pagina atual
+    $queryParams = $request->getQueryParams();
+    $pageAtual = $queryParams['page'] ?? 1;
+
+    //instancia de paginação (define a quantidade total, pagina atual, quant. paginas)
+    $obPagination = new Pagination($totalQuantity, $pageAtual, 3);
+
+    $results = EntityTestimony::getTestimonies(null, 'id DESC', $obPagination->getLimit());
 
     // echo "<pre>";
     // print_r($results->fetchObject(EntityTestimony::class));
@@ -39,9 +49,9 @@ class Testimony extends Page {
     return $items;
   }
 
-  public static function getTestimonies(){
+  public static function getTestimonies($request){
     $content = View::render('pages/testimonies', [
-      'items' => self::getTestimonyItems()
+      'items' => self::getTestimonyItems($request)
     ]);
 
     return parent::getPage('DEPOIMENTOS',$content);
@@ -58,7 +68,8 @@ class Testimony extends Page {
     
     $obTestimony->cadastrar();
     
-    return self::getTestimonies();
+    // retorna a página de listagem de depoimentos
+    return self::getTestimonies($request);
   }
   
 }
