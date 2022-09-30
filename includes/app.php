@@ -21,15 +21,6 @@ Database::config(
   getenv('DB_PORT')
 );
 
-//GET ENVIRONMENT VAR
-// echo getenv('DB_HOST') ." ".
-//   getenv('DB_NAME')." ".
-//   getenv('DB_USER')." ".
-//   getenv('DB_PASS')." ".
-//   getenv('DB_PORT');
-//   exit;
-
-
 $base = new URI();
 $base =  strtolower($base->base());
 
