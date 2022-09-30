@@ -21,6 +21,7 @@ Database::config(
   getenv('DB_PORT')
 );
 
+
 $base = new URI();
 $base =  strtolower($base->base());
 

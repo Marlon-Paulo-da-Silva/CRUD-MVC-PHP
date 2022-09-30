@@ -115,8 +115,8 @@ class URI {
 
        // Pelo PHP Built in deixa a barra, pelo xampp remove a barra
       // Nesse projeto foi interessante remover a última barra
-    //   return rtrim(self::$scriptName, "/");
-      // return self::$scriptName;
+      return rtrim(self::$scriptName, "/");
+    //   return self::$scriptName;
   }
   /**
    * public function base()

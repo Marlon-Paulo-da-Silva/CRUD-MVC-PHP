@@ -24,6 +24,12 @@ class Testimony{
     
     return true;
   }
+
+  // Método responsável por retornar Depoimentos
+  public static function getTestimonies($where = null, $order = null, $limit = null, $field = '*'){
+    
+    return (new Database('depoimentos'))->select($where, $order, $limit, $field);
+  }
 }
 
 ?>
