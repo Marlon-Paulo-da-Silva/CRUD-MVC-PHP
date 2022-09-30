@@ -58,7 +58,6 @@ class Testimony extends Page {
     
     $obTestimony->cadastrar();
     
-    
     return self::getTestimonies();
   }
   
