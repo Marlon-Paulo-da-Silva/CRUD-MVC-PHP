@@ -179,4 +179,9 @@ class Router
         }
 
     }
+
+    // Metodo responsável por retornar a URL atual
+    public function getCurrentUrl(){
+      return $this->url . $this->getUri();
+    }
 }

@@ -8,7 +8,7 @@ use App\Db\Pagination;
 
 class Testimony extends Page {
 
-  public static function getTestimonyItems($request){
+  public static function getTestimonyItems($request, &$obPagination){
     //depoimentos
     $items = '';
 
@@ -51,9 +51,11 @@ class Testimony extends Page {
 
   public static function getTestimonies($request){
     $content = View::render('pages/testimonies', [
-      'items' => self::getTestimonyItems($request)
+      'items' => self::getTestimonyItems($request, $obPagination),
+      'pagination' => parent::getPagination($request, $obPagination)
     ]);
 
+    // retorna a view da pagina
     return parent::getPage('DEPOIMENTOS',$content);
   }
 
