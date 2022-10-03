@@ -42,7 +42,7 @@ class Router
         }
 
         // Middlewares da rota
-        $params['middlewares'] = $params['middlewares'] ?? '';
+        $params['middlewares'] = $params['middlewares'] ?? [];
 
         
         // Variaveis da rota

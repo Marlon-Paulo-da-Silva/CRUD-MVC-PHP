@@ -7,6 +7,9 @@ class Queue {
   // Mapeamento de Middlewares
   private static $map = [];
 
+  // Mapeamento de Middlewares padrões de todas as rotas
+  private static $default = [];
+
   // fila de Middlewares à serem executados
   private $middlewares = [];
 
@@ -19,7 +22,7 @@ class Queue {
   // Metodo responsável por contruir a classe de fila de Middleware
   public function __construct($middlewares, $controller, $controllerArgs)
   {
-    $this->middlewares = $middlewares;
+    $this->middlewares = array_merge(self::$default, $middlewares);
     $this->controller = $controller;
     $this->controllerArgs = $controllerArgs;
   }
@@ -27,6 +30,11 @@ class Queue {
   // Metodo responsável por definir o mapeamento de Middleware
   public static function setMap($map){
     self::$map = $map;
+  }
+
+  // Metodo responsável por definir o mapeamento de Middleware padrões
+  public static function setDefault($default){
+    self::$default = $default;
   }
 
   // Metodo responsável por executar o próximo nível da fila de middleware
@@ -58,16 +66,6 @@ class Queue {
     // Executa o Middleware
     return (new self::$map[$middlewares])->handle($request, $next);
     
-    
-    // echo "<pre>";
-    // print_r(self::$map[$middlewares]);
-    // // print_r($next);
-    // // print_r($request);
-    // // print_r($this->middlewares);
-    // echo "</pre>";
-    // exit;
-    // return $queue->next($request);
-    // return (new self::$map[$middlewares])->handle($request, $next);
     
 
   }

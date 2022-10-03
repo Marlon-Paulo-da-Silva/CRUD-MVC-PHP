@@ -5,11 +5,6 @@ use App\Http\Response;
 use App\Controller\Pages;
 
 $obRouter->get('/',[
-
-  'middlewares' => [
-    'maintenance'
-  ],
-
   function(){
     return new Response(200, Pages\Home::getHome());
   }

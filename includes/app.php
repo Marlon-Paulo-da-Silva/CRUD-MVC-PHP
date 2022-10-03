@@ -38,4 +38,9 @@ View::init([
 MiddlewareQueue::setMap([
   'maintenance' => \App\Http\Middleware\Maintenance::class
 ]);
+
+//Define o mapeamento de Middlewares PADRÕES (EXECUTADOS EM TODAS AS ROTAS)
+MiddlewareQueue::setDefault([
+  'maintenance'
+]);
 ?>
