@@ -37,9 +37,39 @@ class Queue {
 
       return call_user_func_array($this->controller, $this->controllerArgs);
     }
-    die('middlewares');
-    // TODO 25:20
     
+    // TODO 25:20
+
+    // Middleware
+    $middlewares = array_shift($this->middlewares);
+    
+    // Verifica o Mapeamento
+    if(!isset(self::$map[$middlewares])){
+      throw new \Exception("Middleware request not processing", 500);
+      
+    }
+
+    // Next
+    $queue = $this;
+    $next = function($request) use($queue){
+      return $queue->next($request);
+    };
+
+    // Executa o Middleware
+    return (new self::$map[$middlewares])->handle($request, $next);
+    
+    
+    // echo "<pre>";
+    // print_r(self::$map[$middlewares]);
+    // // print_r($next);
+    // // print_r($request);
+    // // print_r($this->middlewares);
+    // echo "</pre>";
+    // exit;
+    // return $queue->next($request);
+    // return (new self::$map[$middlewares])->handle($request, $next);
+    
+
   }
 
 

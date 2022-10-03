@@ -168,10 +168,6 @@ class Router
 
             }
 
-           echo "<pre>";
-          //  print_r($route['middlewares']);
-           echo "</pre>";
-
             // Retorna a execução da fila de Middlewares
             return (new MiddlewareQueue($route['middlewares'], $route['controller'], $args))->next($this->request);
 
