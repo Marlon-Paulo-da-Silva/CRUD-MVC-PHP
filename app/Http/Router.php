@@ -191,11 +191,6 @@ class Router
         // URL
         $url = $this->url . $route;
 
-        // echo "<pre>";
-        // print_r($url);
-        // echo "</pre>";
-        // exit;
-
         // Executa o redirect
         header('Location: '. $url);
         exit;

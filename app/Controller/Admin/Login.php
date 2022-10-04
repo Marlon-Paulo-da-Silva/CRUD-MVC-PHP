@@ -53,4 +53,14 @@ class Login extends Page{
     $request->getRouter()->redirect('/admin');
     
   }
+
+  // Metodo responsável por deslogar o usuário
+  public static function setLogout($request){
+
+    // Destroi a sessão de login
+    SessionAdminLogin::logout();
+
+    // redireciona o usuário para a tela de login
+    $request->getRouter()->redirect('/admin/login');
+  }
 }
