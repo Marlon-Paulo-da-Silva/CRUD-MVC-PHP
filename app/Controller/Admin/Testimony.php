@@ -44,7 +44,7 @@ class Testimony extends Page{
     return $items;
   }
   
-  //Metodo responsável por renderizar a view de listagem de depoimentos
+  // Metodo responsável por renderizar a view de listagem de depoimentos
   public static function getTestimonies($request){
     // Conteúdo da Home
     $content = View::render('admin/modules/testimonies/index',[
@@ -56,6 +56,33 @@ class Testimony extends Page{
     return parent::getPanel('Depoimentos > Inicial', $content,'testimonies');
   }
 
-  
+  // Metodo responsável por retornar o formulário de cadastro de um novo depoimento
+  public static function getNewTestimony($request){
+    
+    // conteúdo do formulário
+    $content = View::render('admin/modules/testimonies/form',[
+      'title' => 'Cadastrar depoimento'
+    ]);
+
+    return parent::getPanel('Cadastrar depoimento > Marlon', $content, 'testimonies');
+  } 
+
+  // Metodo responsável por cadastrar um depoimento no banco
+  public static function setNewTestimony($request){
+    // Post vars
+    $postVars = $request->getPostVars();
+
+    echo "<pre>";
+    print_r($postVars);
+    echo "</pre>";
+    exit;
+
+    // conteúdo do formulário
+    $content = View::render('admin/modules/testimonies/form',[
+      'title' => 'Cadastrar depoimento'
+    ]);
+
+    return parent::getPanel('Cadastrar depoimento > Marlon', $content, 'testimonies');
+  } 
 
 }

@@ -10,10 +10,7 @@ class Home extends Page {
 
     $obOrganization = new Organization;
 
-    // echo '<pre>';
-    // print_r($obOrganization);
-    // exit;
-
+    
     $content = View::render('pages/home', [
       'name' => $obOrganization->name,
     ]);

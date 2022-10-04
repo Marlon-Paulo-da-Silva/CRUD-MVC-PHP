@@ -48,11 +48,7 @@ class Page {
         'active' => $page['current'] ? 'active' : ''
       ]);
 
-      // echo "<pre>";
-      // echo $page['page'];
-      // echo $page['current'] ? 'active' : '';
-      // // print_r($links);
-      // echo "</pre>";
+      
     }
     // echo $links;
     // exit;
