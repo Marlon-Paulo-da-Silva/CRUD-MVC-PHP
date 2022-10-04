@@ -14,7 +14,7 @@ class Home extends Page{
     $content = View::render('admin/modules/home/index',[]);
 
     // Retorna a pagina completa
-    return parent::getPage('Home > Inicial', $content);
+    return parent::getPanel('Home > Inicial', $content,'home');
   }
 
 }
