@@ -185,4 +185,19 @@ class Router
     public function getCurrentUrl(){
       return $this->url . $this->getUri();
     }
+
+    // Metodo responsável por redirecionar a URL
+    public function redirect($route){
+        // URL
+        $url = $this->url . $route;
+
+        // echo "<pre>";
+        // print_r($url);
+        // echo "</pre>";
+        // exit;
+
+        // Executa o redirect
+        header('Location: '. $url);
+        exit;
+    }
 }

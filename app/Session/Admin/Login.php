@@ -20,19 +20,13 @@ class Login {
 
     // Define a sessão do usuário
     $_SESSION['admin']['usuario'] = [
-      'id' => $obUser->id,
-      'nome' => $obUser->nome,
+      'id' => $obUser->id_client,
+      'nome' => $obUser->username,
       'email' => $obUser->email
     ];
 
     // Sucesso
     return true;
-    
-    echo "<pre>";
-    print_r($obUser);
-    echo "</pre>";
-    exit;
-
   }
 }
 

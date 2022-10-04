@@ -49,15 +49,8 @@ class Login extends Page{
     // Cria a sessão de login
     SessionAdminLogin::login($obUser);
 
-    // TODO 36:30 Parte 5
+    // redireciona o usuário para a Home Admin
+    $request->getRouter()->redirect('/admin');
     
-    // // Conteudo da página de login
-    // $content = View::render('admin/login', [
-
-    // ]);
-
-    // //Retorna a página completa
-
-    // return parent::getPage('Login - Sistma', $content);
   }
 }
