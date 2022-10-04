@@ -6,6 +6,9 @@ include __DIR__ . '/admin/home.php';
 // inclui as rotas de Login
 include __DIR__ . '/admin/login.php';
 
+// inclui as rotas de depoimentos
+include __DIR__ . '/admin/testimonies.php';
+
 
 
 
