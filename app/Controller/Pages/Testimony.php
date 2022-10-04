@@ -24,11 +24,6 @@ class Testimony extends Page {
 
     $results = EntityTestimony::getTestimonies(null, 'id DESC', $obPagination->getLimit());
 
-    // echo "<pre>";
-    // print_r($results->fetchObject(EntityTestimony::class));
-    // echo "</pre>";
-    // exit;
-
     // Renderiza o item
     while ($obTestimony = $results->fetchObject(EntityTestimony::class)) {
       $content = View::render('pages/testimony/item',[
@@ -39,11 +34,7 @@ class Testimony extends Page {
       
       $items .= $content;
     }
-    // echo "<pre>";
-    // print_r($content);
-    // echo $items;
-    // echo "</pre>";
-    // exit;
+    
 
     // retorna os depoimentos
     return $items;

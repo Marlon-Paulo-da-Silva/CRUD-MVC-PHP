@@ -99,7 +99,7 @@ class Page {
       $link = $url . '?' . http_build_query($queryParams);
 
       // View
-      $links .= View::render('pages/pagination/link', [
+      $links .= View::render('admin/pagination/link', [
         'link' => $link,
         'page' => $page['page'],
         'active' => $page['current'] ? 'active' : ''
@@ -108,7 +108,7 @@ class Page {
     }
 
     // Renderiza box de paginação
-    return View::render('pages/pagination/box', [
+    return View::render('admin/pagination/box', [
       'links' => $links
     ]);
   }
