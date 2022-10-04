@@ -29,6 +29,8 @@ $base =  strtolower($base->base());
 // define('URL', 'http://localhost/mvc-php');
 define('URL', $base);
 
+
+
 // Define o valor padrão das variáveis
 View::init([
   'URL' => URL
