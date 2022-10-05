@@ -36,6 +36,13 @@ class Testimony{
     ]);
   }
 
+  // Metodo responsável por excluir um depoimento do banco de dados com a instancia atual
+  public function excluir(){
+    
+    // Exclui o depoimento no banco de dados
+    return (new Database('depoimentos'))->delete('id = ' . $this->id);
+  }
+
   // Método responsável por retornar Depoimentos
   public static function getTestimonies($where = null, $order = null, $limit = null, $field = '*'){
     

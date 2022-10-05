@@ -49,7 +49,8 @@ class Testimony extends Page{
     // Conteúdo da Home
     $content = View::render('admin/modules/testimonies/index',[
       'itens' => self::getTestimonyItems($request, $obPagination),
-      'pagination' => parent::getPagination($request, $obPagination)
+      'pagination' => parent::getPagination($request, $obPagination),
+      'status' =>  self::getStatus($request)
     ]);
 
     // Retorna a pagina completa
@@ -101,6 +102,9 @@ class Testimony extends Page{
       case 'updated':
         return Alert::getSuccess('Depoimento atualizado com sucesso !');
         break;
+      case 'deleted':
+        return Alert::getSuccess('Depoimento excluído com sucesso !');
+        break;
     }
   }
 
@@ -149,4 +153,43 @@ class Testimony extends Page{
     $request->getRouter()->redirect('/admin/testimonies/'.$obTestimony->id.'/edit?status=updated');
   }
 
+  // Metodo responsável por retornar o formulário de exclusão do depoimento
+  public static function getDeleteTestimony($request, $id){
+    // Obtém o depoimento do banco de dados
+    $obTestimony = EntityTestimony::getTestimonyById($id);
+
+    // valida a instancia
+    if(!$obTestimony instanceof EntityTestimony){
+      $request->getRouter()->redirect('/admin/testimonies');
+    }
+    
+    // Conteúdo do formulário
+    $content = View::render('admin/modules/testimonies/delete',[
+ 
+      'name' => $obTestimony->name,
+      'message' => $obTestimony->message
+    ]);
+
+    // Retorna a pagina completa
+    return parent::getPanel('Excluir depoimento > Inicial', $content,'testimonies');
+  
+  }
+
+  // Metodo responsável por excluir um depoimento
+  public static function setDeleteTestimony($request, $id){
+    // Obtém o depoimento do banco de dados
+    $obTestimony = EntityTestimony::getTestimonyById($id);
+
+    // valida a instancia
+    if(!$obTestimony instanceof EntityTestimony){
+      $request->getRouter()->redirect('/admin/testimonies');
+    }
+    
+    // excluir o depoimento
+    $obTestimony->excluir();
+
+    // Redireciona o usuário
+    $request->getRouter()->redirect('/admin/testimonies?status=deleted');
+  
+  }
 }
