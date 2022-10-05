@@ -61,7 +61,10 @@ class Testimony extends Page{
     
     // conteúdo do formulário
     $content = View::render('admin/modules/testimonies/form',[
-      'title' => 'Cadastrar depoimento'
+      'title' => 'Cadastrar depoimento',
+      'name' => '',
+      'message' => '',
+      'status' => ''
     ]);
 
     return parent::getPanel('Cadastrar depoimento > Marlon', $content, 'testimonies');
@@ -72,17 +75,78 @@ class Testimony extends Page{
     // Post vars
     $postVars = $request->getPostVars();
 
-    echo "<pre>";
-    print_r($postVars);
-    echo "</pre>";
-    exit;
+    // Nova instancia de depoimento
+    $obTestimony = new EntityTestimony;
+    $obTestimony->name  = $postVars['name'] ?? '';
+    $obTestimony->message  = $postVars['message'] ?? '';
+    $obTestimony->cadastrar();
 
-    // conteúdo do formulário
+    // Redireciona o usuário
+    $request->getRouter()->redirect('/admin/testimonies/'.$obTestimony->id.'/edit?status=created');
+  } 
+
+  // Metodo responsável por retornar a mensagem
+  private static function getStatus($request){
+    // Query Params
+    $queryParams = $request->getQueryParams();
+
+    // Status
+    if(!isset($queryParams['status'])) return '';
+
+    // Mensagens de status
+    switch ($queryParams['status']) {
+      case 'created':
+        return Alert::getSuccess('Depoimento criado com sucesso !');
+        break;
+      case 'updated':
+        return Alert::getSuccess('Depoimento atualizado com sucesso !');
+        break;
+    }
+  }
+
+  // Metodo responsável por retornar o formulário de edição do depoimento
+  public static function getEditTestimony($request, $id){
+    // Obtém o depoimento do banco de dados
+    $obTestimony = EntityTestimony::getTestimonyById($id);
+
+    // valida a instancia
+    if(!$obTestimony instanceof EntityTestimony){
+      $request->getRouter()->redirect('/admin/testimonies');
+    }
+    
+    // Conteúdo do formulário
     $content = View::render('admin/modules/testimonies/form',[
-      'title' => 'Cadastrar depoimento'
+      'title' => 'Editar depoimento',
+      'name' => $obTestimony->name,
+      'message' => $obTestimony->message,
+      'status' => self::getStatus($request)
     ]);
 
-    return parent::getPanel('Cadastrar depoimento > Marlon', $content, 'testimonies');
-  } 
+    // Retorna a pagina completa
+    return parent::getPanel('Editar depoimento > Inicial', $content,'testimonies');
+  
+  }
+
+  // Metodo responsável por gravar a alteração de um depoimento
+  public static function setEditTestimony($request, $id){
+    // Obtém o depoimento do banco de dados
+    $obTestimony = EntityTestimony::getTestimonyById($id);
+
+    // valida a instancia
+    if(!$obTestimony instanceof EntityTestimony){
+      $request->getRouter()->redirect('/admin/testimonies');
+    }
+    
+    //Postvars
+    $postVars = $request->getPostVars();
+
+    // Atualiza a instancia
+    $obTestimony->name = $postVars['nome'] ?? $obTestimony->name;
+    $obTestimony->message = $postVars['message'] ?? $obTestimony->message;
+    $obTestimony->atualizar();
+
+    // Redireciona o usuário
+    $request->getRouter()->redirect('/admin/testimonies/'.$obTestimony->id.'/edit?status=updated');
+  }
 
 }

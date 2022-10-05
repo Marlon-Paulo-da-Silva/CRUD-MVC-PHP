@@ -53,12 +53,11 @@ class Testimony extends Page {
   public static function insertTestimony($request){
     //Dados do post
     $postVars = $request->getPostVars();
-
+    
     //nova instancia de depoimento
     $obTestimony = new EntityTestimony;
     $obTestimony->name = $postVars['name'];
     $obTestimony->message = $postVars['message'];
-    
     $obTestimony->cadastrar();
     
     // retorna a página de listagem de depoimentos
