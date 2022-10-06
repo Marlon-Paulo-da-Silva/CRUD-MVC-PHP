@@ -45,11 +45,25 @@ class Testimony extends Api{
 
     }
     
-    public static function getTestimonies($request){
+  public static function getTestimonies($request){
+  
+    return [
+      'testimonies' => self::getTestimonyItems($request, $obPagination),
+      'pagination' => parent::getPagination($request, $obPagination)
+    ];
+  }
+
+  // Metodo responsável por retornar os detalhes de um depoimento
+  public static function getTestimony($request, $id){
+
+    // Busca depoimento
+    $obTestimony = EntityTestimony::getTestimonyById($id);
     
-      return [
-        'testimonies' => self::getTestimonyItems($request, $obPagination),
-        'pagination' => parent::getPagination($request, $obPagination)
-      ];
+    // Valida se o depoimento existe
+    if(!$obTestimony instanceof EntityTestimony){
+      throw new \Exception("O depoimento: ".$id." não foi encontrado", 404);
+    }
+
+    
   }
 }

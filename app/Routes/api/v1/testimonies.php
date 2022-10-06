@@ -10,3 +10,10 @@ $obRouter->get('/api/v1/testimonies',[
   }
 ]);
 
+// Rota de consulta individual de depoimentos
+$obRouter->get('/api/v1/testimony/{id}', [
+  function($request, $id) {
+    return new Response(200, Api\Testimony::getTestimony($request, $id), 'application/json');
+  }
+]);
+

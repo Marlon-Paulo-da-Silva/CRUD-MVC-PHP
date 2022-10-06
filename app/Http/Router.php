@@ -16,12 +16,21 @@ class Router
 
     private $request;
 
+    // content type padrão do response
+    private $concontentType = 'text/html';
+
     public function __construct($url)
     {
         $this->request = new Request($this);
         $this->url = $url;
         $this->setPrefix();
     }
+
+    // Metodo responsável por alterar o valor do content Type
+    private function setConcontentType($contentType){
+        $this->contentType = $contentType;
+    }
+
 
     private function setPrefix()
     {
@@ -176,7 +185,7 @@ class Router
             // return call_user_func_array($route['controller'], $args);
 
         } catch (Exception $th) {
-            return new Response($th->getCode(), $th->getMessage());
+            return new Response($th->getCode(), $th->getMessage(), $this->contentType);
         }
 
     }
