@@ -34,7 +34,7 @@ class User{
 
  // excluir o usuário no banco
  public function exclude() {
-  return (new Database('authentication'))->delete('id = ' . $this->id_client);
+  return (new Database('authentication'))->delete('id_client = ' . $this->id_client);
  }
  // Método responsável por retornar Depoimentos
  public static function getUsers($where = null, $order = null, $limit = null, $field = '*'){

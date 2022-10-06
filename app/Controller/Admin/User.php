@@ -167,43 +167,42 @@ class User extends Page{
     $request->getRouter()->redirect('/admin/users/'.$obUser->id_client.'/edit?status=updated');
   }
 
-  // Metodo responsável por retornar o formulário de exclusão do depoimento
-  public static function getDeleteTestimony($request, $id){
-    // Obtém o depoimento do banco de dados
-    $obTestimony = EntityTestimony::getTestimonyById($id);
+  // Metodo responsável por retornar o formulário de exclusão do usuário
+  public static function getDeleteUser($request, $id){
+    // Obtém o usuário do banco de dados
+    $obUser = EntityUser::getUserById($id);
 
     // valida a instancia
-    if(!$obTestimony instanceof EntityTestimony){
-      $request->getRouter()->redirect('/admin/testimonies');
+    if(!$obUser instanceof EntityUser){
+      $request->getRouter()->redirect('/admin/users');
     }
     
     // Conteúdo do formulário
-    $content = View::render('admin/modules/testimonies/delete',[
- 
-      'name' => $obTestimony->name,
-      'message' => $obTestimony->message
+    $content = View::render('admin/modules/users/delete',[
+      'client_name' => $obUser->client_name,
+      'username' => $obUser->username
     ]);
 
     // Retorna a pagina completa
-    return parent::getPanel('Excluir depoimento > Inicial', $content,'testimonies');
+    return parent::getPanel('Excluir usuário > Inicial', $content,'users');
   
   }
 
   // Metodo responsável por excluir um depoimento
-  public static function setDeleteTestimony($request, $id){
-    // Obtém o depoimento do banco de dados
-    $obTestimony = EntityTestimony::getTestimonyById($id);
+  public static function setDeleteUser($request, $id){
+    // Obtém o usuário do banco de dados
+    $obUser = EntityUser::getUserById($id);
 
     // valida a instancia
-    if(!$obTestimony instanceof EntityTestimony){
-      $request->getRouter()->redirect('/admin/testimonies');
+    if(!$obUser instanceof EntityUser){
+      $request->getRouter()->redirect('/admin/users');
     }
     
     // excluir o depoimento
-    $obTestimony->excluir();
+    $obUser->exclude();
 
     // Redireciona o usuário
-    $request->getRouter()->redirect('/admin/testimonies?status=deleted');
+    $request->getRouter()->redirect('/admin/users?status=deleted');
   
   }
 
