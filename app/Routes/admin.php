@@ -11,3 +11,6 @@ include __DIR__ . '/admin/testimonies.php';
 
 // inclui as rotas de usuários
 include __DIR__ . '/admin/users.php';
+
+// inclui as rotas da API
+include __DIR__ . '/api.php';
