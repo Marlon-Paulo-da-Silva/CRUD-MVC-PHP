@@ -24,7 +24,8 @@ Database::config(
 
 
 $base = new URI();
-$base =  strtolower($base->base());
+// $base =  strtolower($base->base());
+$base = $base->base();
 
 // define('URL', 'http://localhost/mvc-php');
 define('URL', $base);
