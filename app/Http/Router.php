@@ -17,7 +17,7 @@ class Router
     private $request;
 
     // content type padrão do response
-    private $concontentType = 'text/html';
+    private $contentType = 'text/html';
 
     public function __construct($url)
     {
@@ -27,9 +27,11 @@ class Router
     }
 
     // Metodo responsável por alterar o valor do content Type
-    private function setConcontentType($contentType){
+    public function setContentType($contentType){
         $this->contentType = $contentType;
     }
+
+    // TODO 33:08 Aula 7
 
 
     private function setPrefix()
