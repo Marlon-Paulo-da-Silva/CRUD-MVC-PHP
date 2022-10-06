@@ -98,9 +98,11 @@ class Database{
    */
   public function execute($query,$params = []){
     try{
+      
       $statement = $this->connection->prepare($query);
-      $statement->execute($params);
+      $statement->execute($params);     
       return $statement;
+    
     }catch(PDOException $e){
       die('ERROR: '.$e->getMessage());
     }
@@ -118,9 +120,11 @@ class Database{
 
     //MONTA A QUERY
     $query = 'INSERT INTO '.$this->table.' ('.implode(',',$fields).') VALUES ('.implode(',',$binds).')';
-
+    
     //EXECUTA O INSERT
     $this->execute($query,array_values($values));
+
+    // exit;
 
     //RETORNA O ID INSERIDO
     return $this->connection->lastInsertId();
@@ -158,11 +162,13 @@ class Database{
     $fields = array_keys($values);
 
     //MONTA A QUERY
-    $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$fields).'=? WHERE '.$where;
-
+    $query = 'UPDATE '.$this->table.' SET '.implode(' = ? , ',$fields).' = ? WHERE '.$where;
+    
     //EXECUTAR A QUERY
     $this->execute($query,array_values($values));
 
+    // exit;
+    
     //RETORNA SUCESSO
     return true;
   }

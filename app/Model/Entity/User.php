@@ -14,8 +14,8 @@ class User{
  public function create(){
 
   // insere a instancia no banco de dados
-  $this->id = (new Database('authentication'))->insert([
-    'client_name' => $this->name,
+  $this->id_client = (new Database('authentication'))->insert([
+    'client_name' => $this->client_name,
     'username' => $this->username,
     'email' => $this->email,
     'passwrd' => $this->passwrd
@@ -24,8 +24,8 @@ class User{
 
  // atualizar o usuário no banco
  public function update() {
-  return (new Database('authentication'))->update('id = ' . $this->id_client,[
-    'client_name' => $this->name,
+  return (new Database('authentication'))->update('id_client = ' . $this->id_client,[
+    'client_name' => $this->client_name,
     'username' => $this->username,
     'email' => $this->email,
     'passwrd' => $this->passwrd
@@ -48,7 +48,7 @@ class User{
  }
  
  public static function getUserByEmail($email){
-  return self::getUsers('email = "'.$email.'"')->fetchObject(self::class);
+   return self::getUsers('email = "'.$email.'"')->fetchObject(self::class);
  }
 
 

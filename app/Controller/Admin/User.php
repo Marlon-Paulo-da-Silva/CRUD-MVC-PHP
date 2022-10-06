@@ -81,7 +81,8 @@ class User extends Page{
     $username  = $postVars['username'] ?? '';
     $email  = $postVars['email'] ?? '';
     $passwrd  = $postVars['passwrd'] ?? '';
-    
+
+        
     // Valida o e-mail do usuário
     $obUser = EntityUser::getUserByEmail($email);
     if($obUser instanceof EntityUser){
@@ -97,8 +98,9 @@ class User extends Page{
     $obUser->passwrd  = password_hash($passwrd, PASSWORD_DEFAULT);
     $obUser->create();
 
+    
     // Redireciona o usuário
-    $request->getRouter()->redirect('/admin/users/'.$obUser->id.'/edit?status=created');
+    $request->getRouter()->redirect('/admin/users/'.$obUser->id_client.'/edit?status=created');
   } 
 
 
@@ -139,33 +141,30 @@ class User extends Page{
     
     //Postvars
     $postVars = $request->getPostVars();
-
+    
     $client_name  = $postVars['client_name'] ?? '';
     $username  = $postVars['username'] ?? '';
     $email  = $postVars['email'] ?? '';
-    
+    $passwrd  = $postVars['passwrd'] ?? '';
+
+        
     // Valida o e-mail do usuário
-    $obUser = EntityUser::getUserByEmail($email);
-    if($obUser instanceof EntityUser){
+    $obUserEmail = EntityUser::getUserByEmail($email);
+
+    if($obUserEmail instanceof EntityUser && $obUserEmail->id_client != $id){
       // Redireciona o usuário
       $request->getRouter()->redirect('/admin/users/'.$id.'/edit?status=duplicated');
-    }
-
-    // TODO 1:44 Parte 6 
-    echo "<pre>";
-    print_r($obUser);
-    echo "</pre>";
-    exit;
+    }  
     
     // Atualiza a instancia
-    $obUser->client_name = $postVars['client_name'] ?? $obUser->client_name;
-    $obUser->username = $postVars['username'] ?? $obUser->username;
-    $obUser->email = $postVars['email'] ?? $obUser->email;
-    $obUser->passwrd = $postVars['passwrd'] ?? $obUser->passwrd;
-    $obUser->atualizar();
+    $obUser->client_name = $client_name ?? $obUser->client_name;
+    $obUser->username = $username ?? $obUser->username;
+    $obUser->email = $email ?? $obUser->email;
+    $obUser->passwrd = password_hash($postVars['passwrd'] ?? $obUser->passwrd, PASSWORD_DEFAULT);   
+    $obUser->update();
 
     // Redireciona o usuário
-    $request->getRouter()->redirect('/admin/users/'.$obUser->id.'/edit?status=updated');
+    $request->getRouter()->redirect('/admin/users/'.$obUser->id_client.'/edit?status=updated');
   }
 
   // Metodo responsável por retornar o formulário de exclusão do depoimento
