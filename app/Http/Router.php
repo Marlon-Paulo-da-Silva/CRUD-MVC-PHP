@@ -187,9 +187,23 @@ class Router
             // return call_user_func_array($route['controller'], $args);
 
         } catch (Exception $th) {
-            return new Response($th->getCode(), $th->getMessage(), $this->contentType);
+            return new Response($th->getCode(), $this->getErrorMessage($th->getMessage()), $this->contentType);
         }
 
+    }
+    // Metodo responsável por retornar a mensagem de erro de acordo com o content-type
+    private function getErrorMessage($message){
+        switch ($this->contentType) {
+            case 'application/json':
+                return [
+                    'error' => $message
+                ];
+                break;
+            
+            default:
+                return $message;
+                break;
+        }
     }
 
     // Metodo responsável por retornar a URL atual
