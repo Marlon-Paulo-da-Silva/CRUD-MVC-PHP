@@ -31,7 +31,7 @@ class Router
         $this->contentType = $contentType;
     }
 
-    // TODO 33:08 Aula 7
+
 
 
     private function setPrefix()

@@ -86,6 +86,14 @@ class Testimony extends Api{
     
   }
 
+  public static function setNewTestimony($request){
+    return [
+      'sucesso' => true
+    ];
+
+        // TODO 04:10 Aula 8
+  }
+
 
 
 }
