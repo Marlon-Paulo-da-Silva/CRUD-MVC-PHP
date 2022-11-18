@@ -55,15 +55,37 @@ class Testimony extends Api{
 
   // Metodo responsável por retornar os detalhes de um depoimento
   public static function getTestimony($request, $id){
+    // Valida o ID do depoimento
+    if(!is_numeric($id)){
+      throw new \Exception("O id: ".$id." não é válido", 404);
+    }
 
     // Busca depoimento
     $obTestimony = EntityTestimony::getTestimonyById($id);
+
     
     // Valida se o depoimento existe
     if(!$obTestimony instanceof EntityTestimony){
       throw new \Exception("O depoimento: ".$id." não foi encontrado", 404);
     }
 
+    // echo "<pre>";
+    // print_r($obTestimony);
+    // echo "</pre>";
+    // exit;
+
+
+    // Retorna os detalhes dos imóveis
+    return [
+      'id'   => (int)$obTestimony->id,
+      'nome' => $obTestimony->name,
+      'mensagem' => $obTestimony->message,
+      'data' => $obTestimony->date
+    ];
+
     
   }
+
+
+
 }
